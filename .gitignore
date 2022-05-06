@@ -2,4 +2,4 @@
 tmp/
 
 # air package
-*.air.toml
+.air.toml
