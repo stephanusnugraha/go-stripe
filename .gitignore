@@ -3,3 +3,6 @@ tmp/
 
 # air package
 .air.toml
+
+# sensitif data
+terminal.page.gohtml
