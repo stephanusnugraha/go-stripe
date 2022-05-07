@@ -1,10 +1,5 @@
 # tmp folde
 tmp/
 
-# air package
-.air.toml
-
-# sensitif data
-terminal.page.gohtml
-
 .idea
+.air.toml
