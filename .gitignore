@@ -5,3 +5,4 @@ tmp/
 .air.toml
 Makefile
 dist/
+.vscode
