@@ -52,7 +52,7 @@ func main() {
 	var cfg config
 
 	flag.IntVar(&cfg.port, "port", 4001, "Server port to listen on")
-	flag.StringVar(&cfg.db.dsn, "dsn", "stephan:password@tcp(localhost:3306)/widgets?parseTime=true&tls=false", "DSN")
+	flag.StringVar(&cfg.db.dsn, "dsn", "root:root@tcp(localhost:3206)/widgets?parseTime=true&tls=false", "DSN")
 	flag.StringVar(&cfg.env, "environment", "development", "Application environment {development|production|maintenance}")
 
 	flag.Parse()
