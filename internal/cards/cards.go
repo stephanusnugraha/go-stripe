@@ -85,11 +85,11 @@ func (c *Card) SubscribeToPlan(cust *stripe.Customer, plan, email, last4, cardTy
 	params.AddMetadata("last_four", last4)
 	params.AddMetadata("card_type", cardType)
 	params.AddExpand("latest_invoice.payment_intent")
-	subsciptions, err := sub.New(params)
+	subscriptions, err := sub.New(params)
 	if err != nil {
 		return nil, err
 	}
-	return subsciptions, nil
+	return subscriptions, nil
 }
 
 func (c *Card) CreateCustomer(pm, email string) (*stripe.Customer, string, error) {
