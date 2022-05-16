@@ -250,13 +250,35 @@ func (app *application) CreateAuthToken(w http.ResponseWriter, r *http.Request) 
 
 	err := app.readJSON(w, r, &userInput)
 	if err != nil {
-		app.badRequest(w, r, err)
+		err := app.badRequest(w, r, err)
+		if err != nil {
+			return
+		}
 		return
 	}
 
 	user, err := app.DB.GetUserByEmail(userInput.Email)
 	if err != nil {
-		app.invalidCredentials(w)
+		err := app.invalidCredentials(w)
+		if err != nil {
+			return
+		}
+		return
+	}
+
+	validPassword, err := app.passwordMatches(user.Password, userInput.Password)
+	if err != nil {
+		err := app.invalidCredentials(w)
+		if err != nil {
+			return
+		}
+		return
+	}
+	if !validPassword {
+		err := app.invalidCredentials(w)
+		if err != nil {
+			return
+		}
 		return
 	}
 
