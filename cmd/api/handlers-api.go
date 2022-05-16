@@ -257,6 +257,7 @@ func (app *application) CreateAuthToken(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
+	// get the use from the database by email; send error if invalid email
 	user, err := app.DB.GetUserByEmail(userInput.Email)
 	if err != nil {
 		err := app.invalidCredentials(w)
@@ -266,6 +267,7 @@ func (app *application) CreateAuthToken(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
+	// validate the password; send error if invalid password
 	validPassword, err := app.passwordMatches(user.Password, userInput.Password)
 	if err != nil {
 		err := app.invalidCredentials(w)
@@ -281,6 +283,10 @@ func (app *application) CreateAuthToken(w http.ResponseWriter, r *http.Request) 
 		}
 		return
 	}
+
+	// generate the token
+
+	// send response
 
 	var payload struct {
 		Error   bool   `json:"error"`
