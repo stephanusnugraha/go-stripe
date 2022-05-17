@@ -2,12 +2,14 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/go-chi/chi/v5"
 	"github.com/stephanusnugraha/go-stripe/internal/models"
 	"github.com/stripe/stripe-go/v72"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/stephanusnugraha/go-stripe/internal/cards"
@@ -322,6 +324,27 @@ func (app *application) CreateAuthToken(w http.ResponseWriter, r *http.Request) 
 
 func (app *application) authenticateToken(r *http.Request) (*models.User, error) {
 	var u models.User
+
+	authorizationHeader := r.Header.Get("Authorization")
+	if authorizationHeader == "" {
+		return nil, errors.New("no authorization header received")
+	}
+
+	headerParts := strings.Split(authorizationHeader, " ")
+	if len(headerParts) != 2 || headerParts[0] != "Bearer" {
+		return nil, errors.New("no authorization header received")
+	}
+
+	token := headerParts[1]
+	if len(token) != 26 {
+		return nil, errors.New("authentication token wrong size")
+	}
+
+	// get the user from the tokens table
+	//user, err := app.DB.GetUserForToken(token)
+	//if err != nil {
+	//	return nil, errors.New("no matching user found")
+	//}
 
 	return &u, nil
 }
