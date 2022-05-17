@@ -351,10 +351,8 @@ func (app *application) CheckAuthentication(w http.ResponseWriter, r *http.Reque
 	// validate the token, and get associated user
 	user, err := app.authenticateToken(r)
 	if err != nil {
-		err := app.invalidCredentials(w)
-		if err != nil {
-			return
-		}
+		app.invalidCredentials(w)
+		return
 	}
 
 	// valid user
@@ -364,8 +362,5 @@ func (app *application) CheckAuthentication(w http.ResponseWriter, r *http.Reque
 	}
 	payload.Error = false
 	payload.Message = fmt.Sprintf("authenticated user %s", user.Email)
-	err = app.writeJSON(w, http.StatusOK, payload)
-	if err != nil {
-		return
-	}
+	app.writeJSON(w, http.StatusOK, payload)
 }
