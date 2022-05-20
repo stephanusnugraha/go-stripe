@@ -319,3 +319,16 @@ func (app *application) PostLoginPage(w http.ResponseWriter, r *http.Request) {
 	app.Session.Put(r.Context(), "userID", id)
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
+
+func (app application) Logout(w http.ResponseWriter, r *http.Request) {
+	err := app.Session.Destroy(r.Context())
+	if err != nil {
+		return
+	}
+	err = app.Session.RenewToken(r.Context())
+	if err != nil {
+		return
+	}
+
+	http.Redirect(w, r, "/login", http.StatusSeeOther)
+}
