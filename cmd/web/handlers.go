@@ -323,7 +323,7 @@ func (app *application) PostLoginPage(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
-func (app application) Logout(w http.ResponseWriter, r *http.Request) {
+func (app *application) Logout(w http.ResponseWriter, r *http.Request) {
 	err := app.Session.Destroy(r.Context())
 	if err != nil {
 		return

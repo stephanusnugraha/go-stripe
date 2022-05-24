@@ -22,11 +22,12 @@ type Transaction struct {
 	BankReturnCode      string
 }
 
-func (c Card) Charge(currency string, amount int) (*stripe.PaymentIntent, string, error) {
+// Charge is an alias to CreatePaymentIntent
+func (c *Card) Charge(currency string, amount int) (*stripe.PaymentIntent, string, error) {
 	return c.CreatePaymentIntent(currency, amount)
 }
 
-func (c Card) CreatePaymentIntent(currency string, amount int) (*stripe.PaymentIntent, string, error) {
+func (c *Card) CreatePaymentIntent(currency string, amount int) (*stripe.PaymentIntent, string, error) {
 	stripe.Key = c.Secret
 
 	// create a payment intent
@@ -92,6 +93,7 @@ func (c *Card) SubscribeToPlan(cust *stripe.Customer, plan, email, last4, cardTy
 	return subscriptions, nil
 }
 
+// CreateCustomer creates a stripe customer
 func (c *Card) CreateCustomer(pm, email string) (*stripe.Customer, string, error) {
 	stripe.Key = c.Secret
 	customerParams := &stripe.CustomerParams{

@@ -370,8 +370,8 @@ func (app *application) CheckAuthentication(w http.ResponseWriter, r *http.Reque
 
 func (app *application) VirtualTerminalPaymentSucceeded(w http.ResponseWriter, r *http.Request) {
 	var txnData struct {
-		PaymentAmount   int    `json:"payment_amount"`
-		PaymentCurrency string `json:"payment_currency"`
+		PaymentAmount   int    `json:"amount"`
+		PaymentCurrency string `json:"currency"`
 		FirstName       string `json:"first_name"`
 		LastName        string `json:"last_name"`
 		Email           string `json:"email"`
