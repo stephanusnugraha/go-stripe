@@ -133,6 +133,7 @@ func (c *Card) Refund(pi string, amount int) error {
 	return nil
 }
 
+// CancelSubscription cancels a subscription, by subscription ID
 func (c *Card) CancelSubscription(subID string) error {
 	stripe.Key = c.Secret
 
@@ -148,6 +149,7 @@ func (c *Card) CancelSubscription(subID string) error {
 	return nil
 }
 
+// cardErrorMessage returns human-readable versions of card error messages
 func cardErrorMessage(code stripe.ErrorCode) string {
 	var msg = ""
 	switch code {
