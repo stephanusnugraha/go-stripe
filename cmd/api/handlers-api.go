@@ -161,8 +161,6 @@ func (app *application) CreateCustomerAndSubscribeToPlan(w http.ResponseWriter, 
 
 		// create a new txn
 		amount, _ := strconv.Atoi(data.Amount)
-		//expiryMonth, _ := strconv.Atoi(data.ExpiryMonth)
-		//expiryYear, _ := strconv.Atoi(data.ExpiryYear)
 		txn := models.Transaction{
 			Amount:              amount,
 			Currency:            "cad",
@@ -569,6 +567,7 @@ func (app *application) AllSubscriptions(w http.ResponseWriter, r *http.Request)
 	app.writeJSON(w, http.StatusOK, allSales)
 }
 
+// GetSale returns one sale as json, by id
 func (app *application) GetSale(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 	orderID, _ := strconv.Atoi(id)
@@ -582,6 +581,7 @@ func (app *application) GetSale(w http.ResponseWriter, r *http.Request) {
 	app.writeJSON(w, http.StatusOK, order)
 }
 
+// RefundCharge accepts a json payload and tries to refund a charge
 func (app *application) RefundCharge(w http.ResponseWriter, r *http.Request) {
 	var chargeToRefund struct {
 		ID            int    `json:"id"`
