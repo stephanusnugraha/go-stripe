@@ -51,8 +51,9 @@
                 pageBtns[j].addEventListener("click", function (evt) {
                     let desiredPage = evt.target.getAttribute("data-page");
                     console.log("clicked, and data-page is", desiredPage);
-                    if ((desiredPage > 0) && (desiredPage <= pages)) {
+                    if ((desiredPage > 0) && (desiredPage <= pages + 1)) {
                         console.log("would go to page", desiredPage);
+                        updateTable(pageSize, desiredPage);
                     }
                 })
             }
@@ -63,8 +64,8 @@
             let tbody = document.getElementById("sales-table").getElementsByTagName("tbody")[0];
 
             let body = {
-                page_size: ps,
-                page: cp,
+                page_size: parseInt(ps, 10),
+                page: parseInt(cp, 10),
             }
 
             const requestOptions = {
@@ -112,7 +113,7 @@
                         let newRow = tbody.insertRow();
                         let newCell = newRow.insertCell();
 
-                        newCell.setAttribute("colspan", "4");
+                        newCell.setAttribute("colspan", "5");
                         newCell.innerHTML = "No data available";
                     }
                 })
